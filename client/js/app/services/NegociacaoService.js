@@ -9,7 +9,6 @@ class NegociacaoService {
 
     /* 
         cb = callback
-
         Error-first Callback
     */
 
