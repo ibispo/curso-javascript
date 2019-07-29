@@ -1,0 +1,21 @@
+<!-- upload.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Upload de arquivo</title>
+<body>
+    <label>Informações do arquivo</label>
+    <input class="dados-arquivo" placeholder="formato: nome/tamanho/tipo" 
+        style="width: 400px;">
+
+    <button onclick="arquivoController.envia()"  >Enviar</button>
+
+    <script src="js/Arquivo.js"></script>
+    <script src="js/ArquivoController.js"></script>
+    <script src="helper/ArquivoHelper.js"></script>
+    <script>
+        let arquivoController = new ArquivoController();
+    </script>
+</body>
+</html>

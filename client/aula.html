@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Aula de Javascript©</title>
+</head>
+<body>
+    <h1>Teste Javascript©</h1>
+
+    <div id="divResultado"></div>
+
+    <script src="js/app/models/Aluno.js"></script>
+    <script src="js/app/models/Prova.js"></script>
+    <script src="js/app/models/Codigo.js"></script>
+    <script src="js/app/models/Funcionario.js"></script>
+
+    <script src="js/app/models/ContaSuper.js"></script>
+    <script src="js/app/models/ContaCorrente.js"></script>
+    <script src="js/app/models/ContaPoupanca.js"></script>
+
+    <script>
+    
+      //  let hoje = new Date();
+       // let n1 = new Negociacao(hoje, 5, 720.0);
+
+      //  console.log(n1);
+
+        
+
+        //for (let i=1; i<=100; i++) {
+        //    let nome = 'Negao';
+        //    console.log(i);
+        //}
+        //alert(i);
+        //alert(nome);
+
+            // *****************************************
+
+       // var nome = 'Oi';
+       // var nome = 'Vivo';
+
+       // var idade = 18;
+       // var temCarteira = true;
+
+       // ( function() {
+       //     if(idade >= 18 && temCarteira) {
+       //         var msg = 'Pode dirigir';
+       //         console.log(msg);
+       //     }
+       // })();
+
+       // alert(msg); // exibe undefined
+
+        //////////////
+
+        /*
+        let listaAvaliacao = [
+
+            new Prova( new Aluno( 1, 'Alberto' ), 3.6 ),
+            new Prova( new Aluno( 2, 'Luana' ), 10 ),
+            new Prova( new Aluno( 3, 'Marina' ), 9.5 ),
+            new Prova( new Aluno( 4, 'Isabel' ), 6.5 ),
+            new Prova( new Aluno( 5, 'Karina' ), 6.9 ),
+            new Prova( new Aluno( 6, 'Carlos' ), 7.5 ),
+            new Prova( new Aluno( 7, 'Marcelo' ), 8.1 ),
+            new Prova( new Aluno( 8, 'Elisangela' ), 4.9 ),
+            new Prova( new Aluno( 9, 'Matheus' ), 5.6 )
+
+        ];
+
+        var listaAprovado = listaAvaliacao
+            .filter( prova => prova.nota >= 7 )
+            .map( (prova, index) => (index!=0?" ":"") + 
+                    "<span style='font-weight: bold;'>" + prova.aluno.nome + "</span> " + 
+                    "(" + prova.nota + ")");
+    
+        document.querySelector("#divResultado").innerHTML = 
+            "<p>Lista de alunos com notas a partir de 7</p>" + 
+            "<p>" + listaAprovado + "</p>";
+        */
+
+        let nroExercicio = 11;
+        console.log(`${nroExercicio}º exercício ------------------------------------------------------------`);
+
+        if ( nroExercicio == 1 ) {
+            Codigo.validarCodigo('GWZ-JJ-12');
+            Codigo.validarCodigo('1X1-JJ-12');
+        } 
+
+        if ( nroExercicio == 2 ) {
+            let listaDeNomes1 = ['Flávio', 'Rogers', 'Júlia'];
+            let listaDeNomes2 = ['Vieira', 'Fernanda', 'Gerson']; 
+            Codigo.exibirNoConsole( [].concat(listaDeNomes1, listaDeNomes2, 'Rômulo') ); 
+        }
+
+        if ( nroExercicio == 3 ) {
+            console.log("3º exercício ------------------------------------------------------------");
+            console.log(Codigo.produtoria([1,2,3,4,5]));
+        }
+
+        if ( nroExercicio == 4 ) {
+            numeros = [1,4,9,16,25,36,49,64,81,100,121];
+            let dobro = numeros.map(num => num * 2);
+            let metade = numeros.map(num => num/2);
+            let raiz = numeros.map( num => Math.sqrt(num));        
+            console.log(`dobro: ${dobro} | metade: ${metade} | raiz quadrada: ${raiz}`);
+        }
+
+        if ( nroExercicio == 5 ) {
+            let conta1 = new ContaCorrente(200); 
+            let conta2 = new ContaPoupanca(300); 
+            conta1.atualiza(2);
+            conta2.atualiza(3);
+            console.log(conta1.saldo); //202
+            console.log(conta2.saldo); //306        
+        }
+
+        if ( nroExercicio == 6 ) {
+            let pess = { email: 'abc@abc.com' };
+            let novaPess = new Proxy( pess, {
+                    get ( targ, prop, rece ) {
+                        console.log(`6º exercício - Armadilha aqui`);
+                        // return Reflect.get(targ,prop,rece);  *** 1ª opção
+                        // return targ[prop];                   *** 2ª opção
+                        return "**" + targ[prop] + "**"; // 3ª opção (incluindo asteriscos)
+                    }
+                });
+            console.log( `E-mail lido ${novaPess.email} ...`);
+        }
+
+        if ( nroExercicio == 7 ) {
+            let novoFunc = new Proxy( new Funcionario( "email@funcionario.com.br" ), {
+                get ( targ, prop, rece ) {
+                    console.log(`7º exercício - Armadilha aqui (funcionário)`);
+                    if ( ['email'].includes(prop) ) {
+                        return targ[prop];
+                    }
+                    return Reflect.get(targ,prop,rece); 
+                }
+            });
+            console.log( `E-mail: ${novoFunc.email}` );
+        }
+
+        if ( nroExercicio == 8 ) {
+            let func = new Proxy( {email: 'abc@abc.com'}, {
+                set: function(target, property, value, receiver) {
+                    console.log(`Propriedade ${property} - Antigo: ${target[property]} - Novo: ${value}`);
+                    // return Reflect.set( target,property,value, receiver ); // One way
+                    target[property] = value; // Other way
+                }
+            });
+            func.email = 'depois@funcionario.com.br';
+        }
+
+        if ( nroExercicio == 9 ) {
+            let novoFunc = new Proxy( new Funcionario( "email@funcionario.com.br" ), {
+                set (target, property, value, receiver) {
+                    console.log(`Propriedade ${property} - Antigo: ${target[property]} - Novo: ${value}`);
+                    // return Reflect.set( target,property,value, receiver ); // One way
+                    target[property] = value; // Other way
+                }
+            });
+            novoFunc.email = 'depois@funcionario.com.br';
+            console.log( `E-mail: ${novoFunc.email}` );
+        }
+
+        function exibirNomeSaudacao() {
+            console.log(`Olá ${arguments[0]}, ${arguments[1]}`);
+        }
+
+        if ( nroExercicio == 10 ) {
+            exibirNomeSaudacao('Bispo','boa tarde.');
+        }
+
+        if ( nroExercicio == 11 ) {
+            
+            let abc = String.fromCharCode(65, 66, 67);  // "ABC"
+            console.log(abc);
+
+            let d = Array.from("abc");
+            console.log(d);
+
+        }
+
+
+    </script>
+
+</body>

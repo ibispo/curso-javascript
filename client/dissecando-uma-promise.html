@@ -1,0 +1,26 @@
+<!-- dissecando-uma-promise.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Dissecando uma promise</title>
+</head>
+<body>
+    <script>
+
+        let promise = new Promise((resolve, reject) => {
+            console.log(resolve);
+            setTimeout( () => {
+                if ( ok )
+                    resolve('PROMISE RESOLVIDA');
+                else
+                    reject('TROUBLE');
+            }, 5000);
+        });
+
+        promise
+            .then(resultado => console.log(resultado))
+            .catch(err0 => console.log(err0));
+    </script>
+</body>
+</html>
